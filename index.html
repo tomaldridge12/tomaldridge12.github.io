@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#090a0d" />
+    <meta name="description" content="Tom Aldridge — Senior Engineer working across custom AI hardware, real-time computer vision, platform engineering and customer delivery." />
+    <meta property="og:title" content="Tom Aldridge — Senior Engineer" />
+    <meta property="og:description" content="Custom silicon. Real-time vision. Systems that ship." />
+    <meta property="og:type" content="website" />
+    <title>Tom Aldridge — Senior Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=4" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <main id="content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__fallback"></div>
+          <canvas id="wave-canvas"></canvas>
+          <div class="hero__shade"></div>
+        </div>
+
+        <div class="shell hero__content">
+          <h1 id="hero-title"><span>Tom</span><span>Aldridge</span></h1>
+          <div class="hero__intro">
+            <p class="hero__role">Senior Engineer, Video Analytics at Blaize</p>
+            <p class="hero__summary">I build real-time computer vision systems on custom AI hardware—from Python APIs and tracking frameworks to accelerator kernels and production deployments.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="overview section shell reveal">
+        <h2>From model graph to accelerator kernel to customer application.</h2>
+        <div class="overview__body">
+          <p>My work sits between specialised compute and the problem it needs to solve. At Blaize, that means building the reusable software platform, moving critical work onto the GSP accelerator, and delivering the result into real video analytics systems.</p>
+          <p>I also work on model conversion, quantisation, high-performance face recognition, VLM integration, SDK release infrastructure, hardware simulation for CI, and the configuration systems that let non-engineers deploy analytics without changing code.</p>
+        </div>
+      </section>
+
+      <section class="experience section shell" aria-labelledby="experience-title">
+        <h2 id="experience-title" class="section-title reveal">Experience</h2>
+
+        <article class="role reveal">
+          <div class="role__heading">
+            <div><h3>Senior Engineer</h3><p>Blaize · Video Analytics</p></div>
+            <time datetime="2025-11">Nov 2025—present</time>
+          </div>
+          <ul>
+            <li>Developing a high-level customer API for real-time video analytics on Blaize GSP hardware.</li>
+            <li>Writing OpenCL and OpenVX post-processing kernels to keep work on the accelerator and remove host round-trips.</li>
+            <li>Optimising detection, face recognition, pose estimation and classification models for custom silicon.</li>
+            <li>Building high-performance face recognition pipelines and integrating LLM/VLM workflows with edge video systems.</li>
+            <li>Benchmarking models, analysing bottlenecks, and delivering customer demonstrations, evaluations and trade-show systems.</li>
+          </ul>
+        </article>
+
+        <article class="role reveal">
+          <div class="role__heading">
+            <div><h3>Software Engineer</h3><p>Blaize</p></div>
+            <time datetime="2024-10">Oct 2024—Dec 2025</time>
+          </div>
+          <ul>
+            <li>Built a Python video analytics framework for detection, tracking, spatial reasoning, temporal events and video I/O.</li>
+            <li>Implemented persistent multi-object tracking, dwell time, abandonment, directional counting, regions, lines and paths.</li>
+            <li>Designed configuration and parameter systems for code-free deployment and retuning.</li>
+            <li>Built model conversion and INT8/BF16 quantisation tooling for edge deployment.</li>
+            <li>Owned packaging, releases and hardware-dependent test infrastructure, including accelerator simulation for CI.</li>
+          </ul>
+        </article>
+
+        <article class="role reveal">
+          <div class="role__heading">
+            <div><h3>Data Scientist</h3><p>Dstl · AI and Data Systems</p></div>
+            <time datetime="2022-10">Oct 2022—Oct 2024</time>
+          </div>
+          <ul>
+            <li>Developed real-time speech-to-text systems and an open-source tracking framework.</li>
+            <li>Designed, trained and deployed bespoke convolutional neural networks.</li>
+            <li>Applied research models in delivery-focused environments and won internal technical events and hackathons.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="stack section" aria-labelledby="stack-title">
+        <div class="shell">
+          <div class="stack__heading reveal">
+            <h2 id="stack-title" class="section-title">Technical stack</h2>
+            <p>Technologies I use in production, research and independent work.</p>
+          </div>
+          <div class="stack__rows">
+            <div class="stack__row reveal"><h3>Accelerator &amp; performance</h3><p>OpenCL · OpenVX · GSP · zero-copy buffers · hardware decode · pipelined execution · shared inference · INT8 · BF16 · profiling · benchmarking</p></div>
+            <div class="stack__row reveal"><h3>Computer vision</h3><p>object detection · multi-object tracking · face recognition · pose estimation · classification · spatial reasoning · temporal analytics · event generation</p></div>
+            <div class="stack__row reveal"><h3>Platform engineering</h3><p>Python · high-level APIs · SDK design · configuration systems · packaging · release tooling · hardware simulation · CI · Linux</p></div>
+            <div class="stack__row reveal"><h3>Video &amp; integration</h3><p>real-time video pipelines · VMS integration · Network Optix · REST · MQTT · alerting · scheduling · customer deployments</p></div>
+            <div class="stack__row reveal"><h3>LLM &amp; local AI</h3><p>VLM workflows · GGUF quantisation · vLLM · Ollama · local model hosting · GPU hardware · inference infrastructure</p></div>
+            <div class="stack__row reveal"><h3>Research &amp; data</h3><p>pandas · statsmodels · DICOM · NIfTI · dcm2niix · FSL · BedpostX · ProbtrackX · probabilistic tractography · HPC · statistical modelling</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects section shell" aria-labelledby="projects-title">
+        <h2 id="projects-title" class="section-title reveal">Selected work</h2>
+        <div class="projects__list">
+          <article class="project reveal">
+            <div class="project__title"><h3>Video analytics platform</h3><p>Blaize</p></div>
+            <div class="project__detail"><p>A reusable Python framework connecting custom AI silicon to deployed analytics: detection, tracking, spatial rules, events, video I/O, integrations and configuration.</p><p class="project__tech">Python · OpenCL · OpenVX · edge AI · APIs · SDK tooling</p></div>
+          </article>
+          <article class="project reveal">
+            <div class="project__title"><h3>Optimised VLM Usage</h3><p>Milestone Project Hafnia</p></div>
+            <div class="project__detail"><p>Reduced network and token cost by matching video resolution and frame rate to the VLM architecture, then used the model to contextualise and triage emergency events in real time.</p><p class="project__tech">Second place · €3,000 prize · VLMs · smart cities · Blaize GSP</p></div>
+          </article>
+          <article class="project reveal">
+            <div class="project__title"><h3><a href="https://github.com/tomaldridge12/Investigating-the-impact-of-traumatic-brain-injuries-on-brain-connectivity-changes-for-Alzheimer-s" target="_blank" rel="noreferrer">TBI, connectivity &amp; Alzheimer’s disease <span aria-hidden="true">↗</span></a></h3><p>MSc research</p></div>
+            <div class="project__detail"><p>Processed diffusion-weighted imaging from Vietnam War veterans and used probabilistic tractography to model white-matter connectivity changes associated with traumatic brain injury.</p><p class="project__tech">Python · FSL · HPC · DWI · 52 tracts · 85% research mark</p></div>
+          </article>
+          <article class="project reveal">
+            <div class="project__title"><h3><a href="https://chronicleandledger.com" target="_blank" rel="noreferrer">Chronicle &amp; Ledger <span aria-hidden="true">↗</span></a></h3><p>Independent</p></div>
+            <div class="project__detail"><p>A bespoke customer progress platform for vehicle restoration, designed around long-running work, project history and clear communication between workshop and owner.</p><p class="project__tech">Product design · web platform · customer workflow</p></div>
+          </article>
+          <article class="project reveal">
+            <div class="project__title"><h3><a href="https://github.com/tomaldridge12/FM26-ModManager" target="_blank" rel="noreferrer">Football Manager tools <span aria-hidden="true">↗</span></a></h3><p>Independent</p></div>
+            <div class="project__detail"><p>A mod manager and ongoing reverse engineering of Football Manager save-game formats and internal data structures.</p><p class="project__tech">Reverse engineering · binary data · desktop tooling</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="education section shell" aria-labelledby="education-title">
+        <h2 id="education-title" class="section-title reveal">Education &amp; recognition</h2>
+        <div class="education__grid">
+          <article class="qualification reveal"><h3>MSc Computational Neuroscience, Cognition &amp; AI</h3><p>University of Nottingham · Distinction</p><ul><li>Research project: 85%, joint highest in the School of Psychology</li><li>Postgraduate Award: highest overall course grade, 77%</li><li>No module mark below 70%</li></ul></article>
+          <article class="qualification reveal"><h3>BSc Financial Mathematics</h3><p>University of Nottingham · First Class (Hons)</p><ul><li>Mathematical modelling, statistics and quantitative analysis</li></ul></article>
+        </div>
+      </section>
+
+      <footer class="contact section shell">
+        <h2 class="reveal">Let’s talk.</h2>
+        <a class="contact__email reveal" href="mailto:tomaldridge16@icloud.com">tomaldridge16@icloud.com</a>
+        <div class="contact__links reveal">
+          <a href="https://github.com/tomaldridge12" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+          <a href="https://www.linkedin.com/in/tom-aldridge-software" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+          <p>Leeds, United Kingdom</p>
+        </div>
+      </footer>
+    </main>
+
+    <script src="main.js?v=4"></script>
+  </body>
+</html>
