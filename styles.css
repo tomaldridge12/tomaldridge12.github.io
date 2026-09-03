@@ -37,7 +37,7 @@ ul { margin: 0; }
 .hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, oklch(0.105 0.006 260 / .8), transparent 55%), linear-gradient(0deg, oklch(0.105 0.006 260 / .74), transparent 55%); }
 .hero__content { display: flex; min-height: 100svh; flex-direction: column; justify-content: flex-end; padding-block: clamp(7rem, 15vh, 10rem) clamp(2.5rem, 6vh, 4.5rem); }
 .hero h1 { font-size: clamp(5.7rem, 15vw, 13.5rem); font-weight: 600; letter-spacing: -.075em; line-height: .7; text-transform: uppercase; }
-.hero h1 span { display: block; }
+.hero h1 span { display: block; padding-block: .1em; margin-block: -.1em; }
 .hero__intro { display: grid; grid-template-columns: minmax(14rem, .72fr) minmax(22rem, 1.28fr); gap: clamp(2rem, 7vw, 7rem); max-width: 880px; margin-block-start: clamp(3rem, 7vh, 5rem); }
 .hero__role { max-width: 20ch; font-size: clamp(1.05rem, 1.45vw, 1.3rem); font-weight: 500; line-height: 1.28; }
 .hero__summary { max-width: 48ch; color: var(--text-soft); font-size: clamp(1rem, 1.3vw, 1.16rem); line-height: 1.55; text-wrap: pretty; }
