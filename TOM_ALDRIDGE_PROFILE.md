@@ -72,11 +72,13 @@ Sole architect and implementer of a multi-process, multi-accelerator video analy
 
 **Documentation and handoff.** Maintained a numbered design-notes document recording every divergence from the Nx SDK's assumed model and the workaround chosen, a ticket log, and session handoff notes — so the project stayed transferable rather than resident in one head.
 
-### Whisper on Blaize silicon (TCC2)
+### Hardware certification and deployment launcher (TCC2)
 
-Ported the Whisper speech-to-text transformer stack to hand-tiled GSP kernels. Wrote or adapted tiled implementations of GeMM (three variants, including a 32×64 tiling using 64 matrix registers), Softmax, RMSNorm, rotary positional encoding, SiLU, attention-mask addition, row/column copies, transposes, and the reduction primitives (max, sum-of-exponentials, RMS reciprocal) that softmax and normalisation depend on, with bf16 helper routines throughout. Built the surrounding architecture: separate prefill and non-prefill transformer blocks, a Whisper LLM driver, buffer helpers over the Blaize buffer types, ZMQ transport, and a Python C++ extension module so the whole thing is callable from the analytics stack. Integrated a colleague's Llama 3 port into the same launcher.
+Built the **deployment launcher** for a hardware certification programme: a themed operator UI with bundled typography, singleton enforcement, crash resilience, in-app documentation, an offline install path with staged model weights, and a power-monitor surface. Integrated colleagues' Whisper speech-to-text and Llama 3 ports into the launcher so both were driveable from the same interface, and staged their weights into the offline install.
 
-Alongside the model work, built the **TCC deployment launcher**: a themed operator UI with bundled typography, singleton enforcement, crash resilience, in-app documentation, an offline install path with staged model weights, and a power-monitor surface. Ported the hardware **certification suite** to a new SDK version, including a device-check module and a certification runner.
+Ported the hardware **certification suite** to a new SDK version, including a device-check module and a certification runner.
+
+Attribution note: the Whisper and Llama 3 ports to Blaize silicon were authored by colleagues. Tom's contribution was launcher integration and deployment, not the kernel or transformer work. Do not attribute those ports to Tom.
 
 ### Platform ownership — visualisation subsystem
 
@@ -102,6 +104,7 @@ Integrated and made runnable a wide set of face models: RetinaFace, YUNet keypoi
 - Added a force-bf16 model output option for models where the default precision cost accuracy or performance.
 - Made segmentation and pose models runnable from YAML config, and fixed segmentation visualisation scaling and performance — including skipping segmentation post-processing entirely when no visualiser is attached.
 - Renamed and reorganised the post-NMS processing family as the model set grew.
+- Ported CNN models onto Blaize silicon by rewriting them in the in-house ONNX port language. This is model-level porting rather than kernel authoring: the work is expressing an existing architecture in terms the toolchain can lower onto the accelerator, then resolving the operators and shapes it cannot map directly. Do not describe this as writing the layer implementations by hand.
 
 ### Benchmarking, quality, and developer infrastructure
 
@@ -162,12 +165,15 @@ Editorial angle: this is a concise example of Tom's wider approach — respectin
 - Research project achieved a joint-highest mark across the School of Psychology: **85%**.
 - Received the Postgraduate Award for the highest overall grade across the course: **77%**.
 - No module mark below 70%.
+- Modules included Machine Learning in Science, Neural Computation, Computational Cognitive Psychology, and Practical Biomedical Modelling.
 
 ### BSc Financial Mathematics
 
 **University of Nottingham**
 
 - Graduated with **First Class (Hons)**.
+- Modules included Scientific Computation and Numerical Analysis, Coding and Cryptography, and Mathematical Finance.
+- Editorial angle: the numerical-analysis and cryptography modules are the honest origin of the low-level and performance work — floating-point behaviour, algorithmic complexity, and finite-precision error were undergraduate material before they were a day job.
 
 ## Research project
 
@@ -231,7 +237,7 @@ Editorial angle: Tom’s curiosity continues beyond his job. He likes understand
 
 **Blaize and accelerator stack.** Picasso SDK, the `act` asynchronous graph framework, `Node` and `GSPNode` execution, OpenVX and `vx.Graph` lifecycle, GSP kernel authoring, the `.bm` model format, bf16 / amp / int8 quantisation, Blaize AI Studio.
 
-**Computer vision and ML.** YOLO family (v5, v7, v8, X, SEGv8), PoseNet, RetinaFace, YUNet, AdaFace, IResnet50, DeepSORT tracking, re-identification, semantic segmentation, non-maximum suppression, mean-average-precision evaluation, crowd estimation, ANPR and OCR, keypoint and pose estimation, Whisper speech-to-text, transformer inference, vision-language models.
+**Computer vision and ML.** YOLO family (v5, v7, v8, X, SEGv8), PoseNet, RetinaFace, YUNet, AdaFace, IResnet50, DeepSORT tracking, re-identification, semantic segmentation, non-maximum suppression, mean-average-precision evaluation, crowd estimation, ANPR and OCR, keypoint and pose estimation, vision-language models.
 
 **Systems and infrastructure.** POSIX shared memory and ring buffers, ZeroMQ, protobuf, Unix domain sockets, systemd, multi-process supervisors, GPU and accelerator memory lifecycle management, RTSP, GStreamer, OpenCV codecs, NTP synchronisation, Docker and Docker Compose, multi-GPU serving with vLLM and Ollama, NVIDIA DGX.
 
@@ -275,4 +281,4 @@ Avoid:
 - `CV2024.2.pdf` is present locally and appears image-based; text extraction did not yield readable content. The supplied current role history and project description take precedence over the older PDF where they overlap.
 - The "Blaize technical scope" section was rebuilt on 3 September 2026 from a full audit of Tom's commit history across the Blaize `solutions` and `sdk` repositories, covering all branches — approximately 450 authored commits between October 2024 and September 2026, plus 182 commits authored by others that Tom reviewed and merged. Claims in that section trace to specific commits.
 - Self-hosted LLM infrastructure, CI machine migration, Riyadh on-site customer work, promotional and YouTube recordings, and the Hafnia placement detail were supplied directly by Tom on 3 September 2026.
-- The Llama 3 port to Blaize silicon was authored by a colleague; Tom integrated it into the TCC deployment launcher. Do not attribute the port itself to Tom.
+- The Whisper and Llama 3 ports to Blaize silicon were authored by colleagues; Tom integrated both into the deployment launcher and handled their offline packaging. Do not attribute either port to Tom. Corrected 3 September 2026 on Tom's instruction, after an earlier draft over-credited the Whisper work on the basis of commit authorship that reflected branch merges rather than original authorship.

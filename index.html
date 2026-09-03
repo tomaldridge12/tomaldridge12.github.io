@@ -29,7 +29,7 @@
           <h1 id="hero-title"><span>Tom</span><span>Aldridge</span></h1>
           <div class="hero__intro">
             <p class="hero__role">Senior Engineer, Video Analytics at Blaize</p>
-            <p class="hero__summary">I build real-time computer vision systems on custom AI accelerators. That runs from the Python API a customer writes against, down to the kernels doing post-processing on the chip.</p>
+            <p class="hero__summary">I build real-time computer vision systems on custom AI accelerators — the Python API a customer writes against, and the kernels underneath it doing post-processing on the chip.</p>
           </div>
         </div>
       </section>
@@ -37,9 +37,10 @@
       <section class="overview section shell reveal">
         <h2>The layer between the chip and the problem.</h2>
         <div class="overview__body">
-          <p>Most of my work at Blaize is the software platform other people build analytics on: the component library, the type system, the rendering layer, the configuration that lets someone deploy an analytic without touching code. The rest is making it fast enough to ship, which usually means moving work onto the GSP accelerator and out of the host round-trip.</p>
-          <p>Recently that has meant a multi-process analytics sidecar for a video management system: shared-memory frame transport, per-camera lifecycle recovery, and scheduling work across several accelerators in one machine. Before that, porting a speech-to-text transformer onto hand-tiled GSP kernels.</p>
-          <p>I also review and merge most of what the team ships, which is where a lot of the architectural work actually happens.</p>
+          <p>Blaize builds an AI accelerator. I build the software that makes it useful to somebody who has a camera and a problem. In practice that is a platform the rest of the team writes analytics against — components, types, rendering, and a configuration layer so deploying an analytic does not mean editing code.</p>
+          <p>The other half is performance. An edge box has a fixed compute budget, and the usual way to lose it is shipping frames back to the host for work the accelerator could have done. Most of my optimisation work is closing that gap.</p>
+          <p>My current project puts our analytics inside a third-party video management system: a C++ plugin hands frames to a Python daemon through shared memory, events come back over IPC, and a supervisor spreads cameras across whichever accelerators the host has. Getting it stable took more care than getting it working. Cameras fail, tasks get swapped, and the recovery path is what decides whether anyone trusts it.</p>
+          <p>I also review most of what the team merges. That turns out to be where a lot of the design gets settled.</p>
         </div>
       </section>
 
@@ -55,7 +56,7 @@
             <li>Architected and built a multi-process video analytics sidecar integrating Blaize accelerators into a third-party VMS: a C++ server plugin, zero-copy shared-memory frame transport with a Cython consumer, batched event return over IPC, and a per-camera lifecycle state machine that detects and recovers failed pipelines.</li>
             <li>Extended it to schedule analytics across several accelerators in one host, with a supervisor process pool and utilisation-based placement.</li>
             <li>Traced an accelerator memory leak that only appeared on task swap through live graph census and GC retention analysis, then fixed the root cause upstream in the SDK rather than working around it downstream.</li>
-            <li>Ported a speech-to-text transformer onto hand-tiled GSP kernels. That meant writing tiled GeMM, softmax, RMSNorm, rotary embeddings and the reductions the first two depend on, with separate prefill and decode paths and Python bindings.</li>
+            <li>Ported CNN models onto Blaize silicon by rewriting them in our ONNX port language, and resolved the operators and shapes the toolchain could not map directly.</li>
             <li>Own the visualisation subsystem: pluggable render backends, a style hierarchy, and YAML themes that build style classes at runtime, so a customer look is a config file rather than a code change.</li>
             <li>Rebuilt the face recognition and re-identification stack around a general feature store with caching, quality gating and dtype validation.</li>
             <li>Moved segmentation NMS onto the GSP and wrote post-processing kernels for the segmentation, embedding, keypoint and recognition model families.</li>
@@ -103,7 +104,7 @@
             <div class="stack__row reveal"><h3>Computer vision</h3><p>YOLO family · segmentation · pose estimation · face detection and recognition · embeddings and re-identification · multi-object tracking · NMS · OCR and ANPR · spatial and temporal analytics</p></div>
             <div class="stack__row reveal"><h3>Systems</h3><p>POSIX shared memory · ring buffers · ZeroMQ · protobuf · Unix sockets · systemd · multi-process supervision · GStreamer · RTSP · Docker</p></div>
             <div class="stack__row reveal"><h3>Platform engineering</h3><p>SDK and API design · configuration and schema validation · packaging and release · GitLab CI · pytest with hardware mocking · Sphinx · Linux</p></div>
-            <div class="stack__row reveal"><h3>LLM &amp; local AI</h3><p>vLLM · Ollama · NVIDIA DGX · multi-GPU serving · GGUF quantisation · transformer inference on custom silicon · VLM workflows</p></div>
+            <div class="stack__row reveal"><h3>LLM &amp; local AI</h3><p>vLLM · Ollama · NVIDIA DGX · multi-GPU serving · GGUF quantisation · VLM workflows · ONNX model porting</p></div>
             <div class="stack__row reveal"><h3>Research &amp; data</h3><p>pandas · statsmodels · DICOM · NIfTI · dcm2niix · FSL · BedpostX · ProbtrackX · probabilistic tractography · HPC</p></div>
           </div>
         </div>
@@ -117,8 +118,8 @@
             <div class="project__detail"><p>A multi-process bridge putting Blaize accelerators inside a third-party video management system. A C++ server plugin moves frames to a Python analytics daemon over a shared-memory ring rather than a socket; events come back batched over IPC. A per-camera state machine recovers failed pipelines, and a supervisor spreads cameras across the accelerators in the host.</p><p class="project__tech">C++ · Cython · shared memory · protobuf · systemd · multi-GPU scheduling</p></div>
           </article>
           <article class="project reveal">
-            <div class="project__title"><h3>Transformer inference on GSP</h3><p>Blaize</p></div>
-            <div class="project__detail"><p>Ported a speech-to-text transformer onto hand-tiled accelerator kernels: GeMM, softmax, RMSNorm, rotary embeddings, and the reductions the first two depend on. Separate prefill and decode paths, with Python bindings so the analytics stack can call it directly.</p><p class="project__tech">C++ · OpenCL · BF16 · tiled GeMM · ZeroMQ · Python extensions</p></div>
+            <div class="project__title"><h3>Certification launcher</h3><p>Blaize</p></div>
+            <div class="project__detail"><p>An operator tool for a hardware certification programme: runs the test suite, reports device status, and installs without a network connection, with model weights staged into the offline bundle. Speech-to-text and LLM demos from other engineers are driveable from the same interface.</p><p class="project__tech">Python · packaging · offline deployment · hardware certification</p></div>
           </article>
           <article class="project reveal">
             <div class="project__title"><h3>Video analytics platform</h3><p>Blaize</p></div>
@@ -146,8 +147,8 @@
       <section class="education section shell" aria-labelledby="education-title">
         <h2 id="education-title" class="section-title reveal">Education &amp; recognition</h2>
         <div class="education__grid">
-          <article class="qualification reveal"><h3>MSc Computational Neuroscience, Cognition &amp; AI</h3><p>University of Nottingham · Distinction</p><ul><li>Research project: 85%, joint highest in the School of Psychology</li><li>Postgraduate Award: highest overall course grade, 77%</li><li>No module mark below 70%</li></ul></article>
-          <article class="qualification reveal"><h3>BSc Financial Mathematics</h3><p>University of Nottingham · First Class (Hons)</p><ul><li>Mathematical modelling, statistics and quantitative analysis</li></ul></article>
+          <article class="qualification reveal"><h3>MSc Computational Neuroscience, Cognition &amp; AI</h3><p>University of Nottingham · Distinction</p><ul><li>Machine Learning in Science · Neural Computation · Computational Cognitive Psychology · Practical Biomedical Modelling</li><li>Research project: 85%, joint highest in the School of Psychology</li><li>Postgraduate Award: highest overall course grade, 77%</li><li>No module mark below 70%</li></ul></article>
+          <article class="qualification reveal"><h3>BSc Financial Mathematics</h3><p>University of Nottingham · First Class (Hons)</p><ul><li>Scientific Computation and Numerical Analysis · Coding and Cryptography · Mathematical Finance</li><li>Where the floating-point behaviour and complexity analysis I still use came from</li></ul></article>
         </div>
       </section>
 
