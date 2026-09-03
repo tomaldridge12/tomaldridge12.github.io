@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#090a0d" />
-    <meta name="description" content="Tom Aldridge — Senior Engineer working across custom AI hardware, real-time computer vision, platform engineering and customer delivery." />
+    <meta name="description" content="Tom Aldridge — Senior Engineer building real-time computer vision on custom AI accelerators: platform APIs, GSP kernels, VMS integration and deployed customer systems." />
     <meta property="og:title" content="Tom Aldridge — Senior Engineer" />
-    <meta property="og:description" content="Custom silicon. Real-time vision. Systems that ship." />
+    <meta property="og:description" content="Real-time computer vision on custom AI accelerators." />
     <meta property="og:type" content="website" />
     <title>Tom Aldridge — Senior Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,16 +29,17 @@
           <h1 id="hero-title"><span>Tom</span><span>Aldridge</span></h1>
           <div class="hero__intro">
             <p class="hero__role">Senior Engineer, Video Analytics at Blaize</p>
-            <p class="hero__summary">I build real-time computer vision systems on custom AI hardware—from Python APIs and tracking frameworks to accelerator kernels and production deployments.</p>
+            <p class="hero__summary">I build real-time computer vision systems on custom AI accelerators. That runs from the Python API a customer writes against, down to the kernels doing post-processing on the chip.</p>
           </div>
         </div>
       </section>
 
       <section class="overview section shell reveal">
-        <h2>From model graph to accelerator kernel to customer application.</h2>
+        <h2>The layer between the chip and the problem.</h2>
         <div class="overview__body">
-          <p>My work sits between specialised compute and the problem it needs to solve. At Blaize, that means building the reusable software platform, moving critical work onto the GSP accelerator, and delivering the result into real video analytics systems.</p>
-          <p>I also work on model conversion, quantisation, high-performance face recognition, VLM integration, SDK release infrastructure, hardware simulation for CI, and the configuration systems that let non-engineers deploy analytics without changing code.</p>
+          <p>Most of my work at Blaize is the software platform other people build analytics on: the component library, the type system, the rendering layer, the configuration that lets someone deploy an analytic without touching code. The rest is making it fast enough to ship, which usually means moving work onto the GSP accelerator and out of the host round-trip.</p>
+          <p>Recently that has meant a multi-process analytics sidecar for a video management system: shared-memory frame transport, per-camera lifecycle recovery, and scheduling work across several accelerators in one machine. Before that, porting a speech-to-text transformer onto hand-tiled GSP kernels.</p>
+          <p>I also review and merge most of what the team ships, which is where a lot of the architectural work actually happens.</p>
         </div>
       </section>
 
@@ -51,11 +52,14 @@
             <time datetime="2025-11">Nov 2025—present</time>
           </div>
           <ul>
-            <li>Developing a high-level customer API for real-time video analytics on Blaize GSP hardware.</li>
-            <li>Writing OpenCL and OpenVX post-processing kernels to keep work on the accelerator and remove host round-trips.</li>
-            <li>Optimising detection, face recognition, pose estimation and classification models for custom silicon.</li>
-            <li>Building high-performance face recognition pipelines and integrating LLM/VLM workflows with edge video systems.</li>
-            <li>Benchmarking models, analysing bottlenecks, and delivering customer demonstrations, evaluations and trade-show systems.</li>
+            <li>Architected and built a multi-process video analytics sidecar integrating Blaize accelerators into a third-party VMS: a C++ server plugin, zero-copy shared-memory frame transport with a Cython consumer, batched event return over IPC, and a per-camera lifecycle state machine that detects and recovers failed pipelines.</li>
+            <li>Extended it to schedule analytics across several accelerators in one host, with a supervisor process pool and utilisation-based placement.</li>
+            <li>Traced an accelerator memory leak that only appeared on task swap through live graph census and GC retention analysis, then fixed the root cause upstream in the SDK rather than working around it downstream.</li>
+            <li>Ported a speech-to-text transformer onto hand-tiled GSP kernels. That meant writing tiled GeMM, softmax, RMSNorm, rotary embeddings and the reductions the first two depend on, with separate prefill and decode paths and Python bindings.</li>
+            <li>Own the visualisation subsystem: pluggable render backends, a style hierarchy, and YAML themes that build style classes at runtime, so a customer look is a config file rather than a code change.</li>
+            <li>Rebuilt the face recognition and re-identification stack around a general feature store with caching, quality gating and dtype validation.</li>
+            <li>Moved segmentation NMS onto the GSP and wrote post-processing kernels for the segmentation, embedding, keypoint and recognition model families.</li>
+            <li>Run the self-hosted LLM infrastructure used for internal model evaluation, on vLLM and Ollama across multi-GPU bare metal and NVIDIA DGX.</li>
           </ul>
         </article>
 
@@ -65,11 +69,12 @@
             <time datetime="2024-10">Oct 2024—Dec 2025</time>
           </div>
           <ul>
-            <li>Built a Python video analytics framework for detection, tracking, spatial reasoning, temporal events and video I/O.</li>
-            <li>Implemented persistent multi-object tracking, dwell time, abandonment, directional counting, regions, lines and paths.</li>
-            <li>Designed configuration and parameter systems for code-free deployment and retuning.</li>
-            <li>Built model conversion and INT8/BF16 quantisation tooling for edge deployment.</li>
-            <li>Owned packaging, releases and hardware-dependent test infrastructure, including accelerator simulation for CI.</li>
+            <li>Built out the Python video analytics framework: detection, tracking, spatial reasoning over regions, lines and paths, temporal events, and video I/O.</li>
+            <li>Owned the type layer the whole pipeline passes through, including the geometry and curve fitting under path analytics.</li>
+            <li>Wrote the benchmarking suite from scratch. It covers mAP and bounding-box accuracy, takes per-model configs, and checks the CPU governor first, because a throttled host quietly invalidates every number you take off it.</li>
+            <li>Moved the model tree out of the Python package into a shared root with environment-driven discovery, and made CI publish reference models as a build artifact on tag.</li>
+            <li>Designed the configuration and parameter system, with schema validation and live updates that apply without a restart.</li>
+            <li>Owned six SDK releases end to end. Migrated the CI machines and rewrote their pipelines, and replaced the hand-written boilerplate in every example with one launcher.</li>
           </ul>
         </article>
 
@@ -81,7 +86,7 @@
           <ul>
             <li>Developed real-time speech-to-text systems and an open-source tracking framework.</li>
             <li>Designed, trained and deployed bespoke convolutional neural networks.</li>
-            <li>Applied research models in delivery-focused environments and won internal technical events and hackathons.</li>
+            <li>Applied research models in delivery-focused environments, and won internal technical events and hackathons.</li>
           </ul>
         </article>
       </section>
@@ -93,12 +98,13 @@
             <p>Technologies I use in production, research and independent work.</p>
           </div>
           <div class="stack__rows">
-            <div class="stack__row reveal"><h3>Accelerator &amp; performance</h3><p>OpenCL · OpenVX · GSP · zero-copy buffers · hardware decode · pipelined execution · shared inference · INT8 · BF16 · profiling · benchmarking</p></div>
-            <div class="stack__row reveal"><h3>Computer vision</h3><p>object detection · multi-object tracking · face recognition · pose estimation · classification · spatial reasoning · temporal analytics · event generation</p></div>
-            <div class="stack__row reveal"><h3>Platform engineering</h3><p>Python · high-level APIs · SDK design · configuration systems · packaging · release tooling · hardware simulation · CI · Linux</p></div>
-            <div class="stack__row reveal"><h3>Video &amp; integration</h3><p>real-time video pipelines · VMS integration · Network Optix · REST · MQTT · alerting · scheduling · customer deployments</p></div>
-            <div class="stack__row reveal"><h3>LLM &amp; local AI</h3><p>VLM workflows · GGUF quantisation · vLLM · Ollama · local model hosting · GPU hardware · inference infrastructure</p></div>
-            <div class="stack__row reveal"><h3>Research &amp; data</h3><p>pandas · statsmodels · DICOM · NIfTI · dcm2niix · FSL · BedpostX · ProbtrackX · probabilistic tractography · HPC · statistical modelling</p></div>
+            <div class="stack__row reveal"><h3>Languages</h3><p>Python · C++17 · Cython · OpenCL · Bash · JavaScript · SQL</p></div>
+            <div class="stack__row reveal"><h3>Accelerator &amp; performance</h3><p>OpenVX · GSP kernels · graph memory lifecycle · zero-copy buffers · hardware decode · shared inference · INT8 · BF16 · profiling · mAP benchmarking</p></div>
+            <div class="stack__row reveal"><h3>Computer vision</h3><p>YOLO family · segmentation · pose estimation · face detection and recognition · embeddings and re-identification · multi-object tracking · NMS · OCR and ANPR · spatial and temporal analytics</p></div>
+            <div class="stack__row reveal"><h3>Systems</h3><p>POSIX shared memory · ring buffers · ZeroMQ · protobuf · Unix sockets · systemd · multi-process supervision · GStreamer · RTSP · Docker</p></div>
+            <div class="stack__row reveal"><h3>Platform engineering</h3><p>SDK and API design · configuration and schema validation · packaging and release · GitLab CI · pytest with hardware mocking · Sphinx · Linux</p></div>
+            <div class="stack__row reveal"><h3>LLM &amp; local AI</h3><p>vLLM · Ollama · NVIDIA DGX · multi-GPU serving · GGUF quantisation · transformer inference on custom silicon · VLM workflows</p></div>
+            <div class="stack__row reveal"><h3>Research &amp; data</h3><p>pandas · statsmodels · DICOM · NIfTI · dcm2niix · FSL · BedpostX · ProbtrackX · probabilistic tractography · HPC</p></div>
           </div>
         </div>
       </section>
@@ -107,12 +113,20 @@
         <h2 id="projects-title" class="section-title reveal">Selected work</h2>
         <div class="projects__list">
           <article class="project reveal">
+            <div class="project__title"><h3>VMS analytics sidecar</h3><p>Blaize</p></div>
+            <div class="project__detail"><p>A multi-process bridge putting Blaize accelerators inside a third-party video management system. A C++ server plugin moves frames to a Python analytics daemon over a shared-memory ring rather than a socket; events come back batched over IPC. A per-camera state machine recovers failed pipelines, and a supervisor spreads cameras across the accelerators in the host.</p><p class="project__tech">C++ · Cython · shared memory · protobuf · systemd · multi-GPU scheduling</p></div>
+          </article>
+          <article class="project reveal">
+            <div class="project__title"><h3>Transformer inference on GSP</h3><p>Blaize</p></div>
+            <div class="project__detail"><p>Ported a speech-to-text transformer onto hand-tiled accelerator kernels: GeMM, softmax, RMSNorm, rotary embeddings, and the reductions the first two depend on. Separate prefill and decode paths, with Python bindings so the analytics stack can call it directly.</p><p class="project__tech">C++ · OpenCL · BF16 · tiled GeMM · ZeroMQ · Python extensions</p></div>
+          </article>
+          <article class="project reveal">
             <div class="project__title"><h3>Video analytics platform</h3><p>Blaize</p></div>
-            <div class="project__detail"><p>A reusable Python framework connecting custom AI silicon to deployed analytics: detection, tracking, spatial rules, events, video I/O, integrations and configuration.</p><p class="project__tech">Python · OpenCL · OpenVX · edge AI · APIs · SDK tooling</p></div>
+            <div class="project__detail"><p>The reusable Python framework the products are built from: detection, tracking, spatial rules, events, video I/O, integrations and configuration. I own the type layer, the visualisation subsystem and the benchmarking suite, and review most of what lands in it.</p><p class="project__tech">Python · OpenVX · edge AI · API design · SDK tooling</p></div>
           </article>
           <article class="project reveal">
             <div class="project__title"><h3>Optimised VLM Usage</h3><p>Milestone Project Hafnia</p></div>
-            <div class="project__detail"><p>Reduced network and token cost by matching video resolution and frame rate to the VLM architecture, then used the model to contextualise and triage emergency events in real time.</p><p class="project__tech">Second place · €3,000 prize · VLMs · smart cities · Blaize GSP</p></div>
+            <div class="project__detail"><p>Reduced network and token cost by matching video resolution and frame rate to the VLM architecture, then used the model to contextualise and triage emergency events in real time. I built the dashboard, the task-level prompting and the routing between the analytics and the model.</p><p class="project__tech">Second place · €3,000 prize · VLMs · smart cities · Blaize GSP</p></div>
           </article>
           <article class="project reveal">
             <div class="project__title"><h3><a href="https://github.com/tomaldridge12/Investigating-the-impact-of-traumatic-brain-injuries-on-brain-connectivity-changes-for-Alzheimer-s" target="_blank" rel="noreferrer">TBI, connectivity &amp; Alzheimer’s disease <span aria-hidden="true">↗</span></a></h3><p>MSc research</p></div>
@@ -138,7 +152,7 @@
       </section>
 
       <footer class="contact section shell">
-        <h2 class="reveal">Let’s talk.</h2>
+        <h2 class="reveal">Get in touch</h2>
         <a class="contact__email reveal" href="mailto:tomaldridge16@icloud.com">tomaldridge16@icloud.com</a>
         <div class="contact__links reveal">
           <a href="https://github.com/tomaldridge12" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
