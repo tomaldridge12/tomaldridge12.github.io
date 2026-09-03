@@ -8,20 +8,23 @@
     <meta property="og:title" content="Tom Aldridge — Senior Engineer" />
     <meta property="og:description" content="Real-time computer vision on custom AI accelerators." />
     <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23090a0d'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%237fb8dd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%237fb8dd'/%3E%3C/svg%3E" />
     <title>Tom Aldridge — Senior Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=9" />
+    <link rel="stylesheet" href="styles.css?v=10" />
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
 
     <main id="content">
-      <section class="hero" aria-labelledby="hero-title">
+      <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero__visual" aria-hidden="true">
           <div class="hero__fallback"></div>
           <canvas id="wave-canvas"></canvas>
+          <div class="hero__grid"></div>
           <div class="hero__shade"></div>
         </div>
 
@@ -31,10 +34,17 @@
             <p class="hero__role">Senior Engineer, Video Analytics at Blaize</p>
             <p class="hero__summary">I build real-time computer vision systems on custom AI accelerators — the customer-facing Python API and the kernels underneath it doing post-processing on the chip.</p>
           </div>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">Explore the work</a>
+            <a class="btn btn--ghost" href="#contact">Get in touch</a>
+            <a class="btn btn--ghost" href="https://github.com/tomaldridge12" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/tom-aldridge-software" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="hero__status">Leeds, UK · Blaize · video analytics · building at the edge</p>
         </div>
       </section>
 
-      <section class="overview section shell reveal">
+      <section class="overview section shell reveal" id="overview">
         <h2>The layer between the chip and the problem.</h2>
         <div class="overview__body">
           <p>Blaize builds an AI accelerator. I build the software that makes it useful to somebody who has a camera and a problem. In practice that is an analytics platform — components, models, types, rendering, and deployment.</p>
@@ -42,13 +52,13 @@
         </div>
       </section>
 
-      <section class="experience section shell" aria-labelledby="experience-title">
+      <section class="experience section shell" id="experience" aria-labelledby="experience-title">
         <h2 id="experience-title" class="section-title reveal">Experience</h2>
 
         <article class="role reveal">
           <div class="role__heading">
             <div><h3>Senior Engineer</h3><p>Blaize · Video Analytics</p></div>
-            <time datetime="2025-11">Nov 2025—present</time>
+            <time datetime="2025-11">Nov 2025–present</time>
           </div>
           <ul>
             <li>Architected and built a multi-process video analytics sidecar integrating Blaize accelerators into a third-party VMS: a C++ server plugin, zero-copy shared-memory frame transport with a Cython consumer, batched event return over IPC, and a per-camera lifecycle state machine that detects and recovers failed pipelines.</li>
@@ -65,7 +75,7 @@
         <article class="role reveal">
           <div class="role__heading">
             <div><h3>Software Engineer</h3><p>Blaize</p></div>
-            <time datetime="2024-10">Oct 2024—Dec 2025</time>
+            <time datetime="2024-10/2025-11">Oct 2024–Nov 2025</time>
           </div>
           <ul>
             <li>Built out the Python video analytics framework: detection, tracking, spatial reasoning over regions, lines and paths, temporal events, and video I/O.</li>
@@ -80,7 +90,7 @@
         <article class="role reveal">
           <div class="role__heading">
             <div><h3>Data Scientist</h3><p>Dstl · AI and Data Systems</p></div>
-            <time datetime="2022-10">Oct 2022—Oct 2024</time>
+            <time datetime="2022-10/2024-10">Oct 2022–Oct 2024</time>
           </div>
           <ul>
             <li>Developed real-time speech-to-text systems and an open-source tracking framework.</li>
@@ -90,7 +100,7 @@
         </article>
       </section>
 
-      <section class="stack section" aria-labelledby="stack-title">
+      <section class="stack section" id="stack" aria-labelledby="stack-title">
         <div class="shell">
           <div class="stack__heading reveal">
             <h2 id="stack-title" class="section-title">Technical stack</h2>
@@ -108,7 +118,7 @@
         </div>
       </section>
 
-      <section class="projects section shell" aria-labelledby="projects-title">
+      <section class="projects section shell" id="projects" aria-labelledby="projects-title">
         <h2 id="projects-title" class="section-title reveal">Selected work</h2>
         <div class="projects__list">
           <article class="project reveal">
@@ -124,7 +134,7 @@
             <div class="project__detail"><p>The reusable Python framework the products are built from: detection, tracking, spatial rules, events, video I/O, integrations and configuration. I own the type layer, the visualisation subsystem and the benchmarking suite, and review most of what lands in it.</p><p class="project__tech">Python · OpenVX · edge AI · API design · SDK tooling</p></div>
           </article>
           <article class="project reveal">
-            <div class="project__title"><h3>Optimised VLM Usage</h3><p>Milestone Project Hafnia</p></div>
+            <div class="project__title"><h3>Optimised VLM usage</h3><p>Milestone Project Hafnia</p></div>
             <div class="project__detail"><p>Reduced network and token cost by matching video resolution and frame rate to the VLM architecture, then used the model to contextualise and triage emergency events in real time. I built the dashboard, the task-level prompting and the routing between the analytics and the model.</p><p class="project__tech">Second place · €3,000 prize · VLMs · smart cities · Blaize GSP</p></div>
           </article>
           <article class="project reveal">
@@ -146,12 +156,12 @@
         <h2 id="education-title" class="section-title reveal">Education &amp; recognition</h2>
         <div class="education__grid">
           <article class="qualification reveal"><h3>MSc Computational Neuroscience, Cognition &amp; AI</h3><p>University of Nottingham · Distinction</p><ul><li>Machine Learning in Science · Neural Computation · Computational Cognitive Psychology · Practical Biomedical Modelling</li><li>Research project: 85%, joint highest in the School of Psychology</li><li>Postgraduate Award: highest overall course grade, 77%</li><li>No module mark below 70%</li></ul></article>
-          <article class="qualification reveal"><h3>BSc Financial Mathematics</h3><p>University of Nottingham · First Class (Hons)</p><ul><li>Scientific Computation and Numerical Analysis · Coding and Cryptography · Mathematical Finance</li><li>Where the floating-point behaviour and complexity analysis I still use came from</li></ul></article>
+          <article class="qualification reveal"><h3>BSc Financial Mathematics</h3><p>University of Nottingham · First Class (Hons)</p><ul><li>Scientific Computation and Numerical Analysis</li><li>Coding and Cryptography</li><li>Mathematical Finance</li></ul></article>
         </div>
       </section>
 
-      <footer class="contact section shell">
-        <h2 class="reveal">Get in touch</h2>
+      <footer class="contact section shell" id="contact">
+        <h2 class="reveal">Let's talk</h2>
         <a class="contact__email reveal" href="mailto:tomaldridge16@icloud.com">tomaldridge16@icloud.com</a>
         <div class="contact__links reveal">
           <a href="https://github.com/tomaldridge12" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
@@ -161,6 +171,7 @@
       </footer>
     </main>
 
-    <script src="main.js?v=7"></script>
+    <noscript><style>.reveal{opacity:1 !important;transform:none !important}#wave-canvas{display:none}</style></noscript>
+    <script src="main.js?v=8"></script>
   </body>
 </html>

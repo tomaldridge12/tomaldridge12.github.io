@@ -1,4 +1,5 @@
 (() => {
+  document.documentElement.classList.add('js');
   const canvas = document.querySelector('#wave-canvas');
   const hero = document.querySelector('.hero');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -14,6 +15,7 @@
     uniform vec2 uPointer;
     uniform float uTime;
     uniform float uEnergy;
+    uniform float uScroll;
     out vec4 outColor;
 
     float hash21(vec2 p) {
@@ -32,7 +34,7 @@
     float fbm(vec2 p) {
       float value = 0.0;
       float amplitude = .5;
-      for (int i = 0; i < 3; i++) {
+      for (int i = 0; i < 4; i++) {
         value += noise(p) * amplitude;
         p = p * 2.03 + vec2(5.1, 8.7);
         amplitude *= .5;
@@ -50,6 +52,7 @@
       float t = uTime * .12;
       vec2 p = uv + mouse * vec2(.14, .1);
       p *= mat2(.94, -.34, .34, .94);
+      p.y += uScroll * .35;
 
       float warpA = fbm(p * 1.25 + vec2(t, -t * .7));
       float warpB = fbm(p * 1.8 + vec2(-t * .55, t * .8) + vec2(warpA * .7));
@@ -60,22 +63,27 @@
       float fold = exp(-pow(abs(sweep + (warpB - .5) * .34), 2.0) * 19.0);
       float veil = exp(-pow(abs(warped.y - .28 + sin(warped.x * 1.1 - t * 2.0) * .13), 2.0) * 8.0);
       float detail = smoothstep(.46, .82, fbm(warped * 3.1 + vec2(t * .4, 0.0)));
+      float tracks = smoothstep(.75, .95, fbm(vec2(warped.x * 6.0, warped.y * 1.5 - t * .5)));
       float envelope = smoothstep(1.35, .16, length(uv * vec2(.58, .9)));
 
       vec3 color = vec3(.012, .015, .021);
       vec3 deepBlue = vec3(.055, .16, .27);
       vec3 ice = vec3(.28, .54, .72);
       vec3 pearl = vec3(.76, .86, .91);
+      vec3 amber = vec3(.45, .28, .12);
       color += deepBlue * body * (.75 + warpA * .5);
       color += ice * fold * (.2 + detail * .48);
       color += pearl * fold * detail * .22;
       color += deepBlue * veil * .38;
+      color += amber * tracks * fold * .35;
       color += ice * uEnergy * body * .055;
       color *= envelope;
 
       float grain = hash21(gl_FragCoord.xy + floor(uTime * 12.0)) - .5;
       color += grain * .018;
       color *= .82 + smoothstep(1.2, .12, length(uv * vec2(.58, .76))) * .3;
+      // scanline whisper: instrument feel
+      color *= 1.0 - 0.035 * sin(gl_FragCoord.y * 1.7);
       outColor = vec4(color, 1.0);
     }
   `;
@@ -91,6 +99,9 @@
     }
     return shader;
   }
+
+  let heroVisible = true;
+  let scrollProgress = 0;
 
   function initialiseShader() {
     if (!canvas || !hero) return;
@@ -123,6 +134,7 @@
     const pointerUniform = gl.getUniformLocation(program, 'uPointer');
     const timeUniform = gl.getUniformLocation(program, 'uTime');
     const energyUniform = gl.getUniformLocation(program, 'uEnergy');
+    const scrollUniform = gl.getUniformLocation(program, 'uScroll');
     const target = { x: .18, y: 0 };
     const pointer = { x: .18, y: 0 };
     let energy = 0;
@@ -136,6 +148,11 @@
       energy = Math.min(1, energy + velocity);
       lastX = event.clientX;
       lastY = event.clientY;
+    }, { passive: true });
+
+    window.addEventListener('scroll', () => {
+      const max = Math.max(1, window.innerHeight);
+      scrollProgress = Math.min(1, window.scrollY / max);
     }, { passive: true });
 
     const resize = () => {
@@ -152,10 +169,19 @@
     const start = performance.now();
     hero.classList.add('has-webgl');
 
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        heroVisible = entries[0].isIntersecting;
+        if (heroVisible && !reducedMotion) requestAnimationFrame(render);
+      }, { threshold: 0 }).observe(hero);
+    }
+
     let previousFrame = 0;
+    let rafId = 0;
     const render = (now) => {
+      if (!heroVisible && !reducedMotion) return;
       if (!reducedMotion && now - previousFrame < 30) {
-        requestAnimationFrame(render);
+        rafId = requestAnimationFrame(render);
         return;
       }
       previousFrame = now;
@@ -167,10 +193,13 @@
       gl.uniform2f(pointerUniform, reducedMotion ? .18 : pointer.x, reducedMotion ? 0 : pointer.y);
       gl.uniform1f(timeUniform, reducedMotion ? 0 : (now - start) / 1000);
       gl.uniform1f(energyUniform, reducedMotion ? 0 : energy);
+      gl.uniform1f(scrollUniform, scrollProgress);
       gl.drawArrays(gl.TRIANGLES, 0, 6);
-      if (!reducedMotion) requestAnimationFrame(render);
+      if (reducedMotion) return;
+      rafId = requestAnimationFrame(render);
     };
     requestAnimationFrame(render);
+    void rafId;
   }
 
   function initialiseReveals() {
