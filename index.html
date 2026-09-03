@@ -29,7 +29,7 @@
           <h1 id="hero-title"><span>Tom</span><span>Aldridge</span></h1>
           <div class="hero__intro">
             <p class="hero__role">Senior Engineer, Video Analytics at Blaize</p>
-            <p class="hero__summary">I build real-time computer vision systems on custom AI accelerators — the Python API a customer writes against, and the kernels underneath it doing post-processing on the chip.</p>
+            <p class="hero__summary">I build real-time computer vision systems on custom AI accelerators — the customer-facing Python API and the kernels underneath it doing post-processing on the chip.</p>
           </div>
         </div>
       </section>
@@ -37,10 +37,8 @@
       <section class="overview section shell reveal">
         <h2>The layer between the chip and the problem.</h2>
         <div class="overview__body">
-          <p>Blaize builds an AI accelerator. I build the software that makes it useful to somebody who has a camera and a problem. In practice that is a platform the rest of the team writes analytics against — components, types, rendering, and a configuration layer so deploying an analytic does not mean editing code.</p>
+          <p>Blaize builds an AI accelerator. I build the software that makes it useful to somebody who has a camera and a problem. In practice that is an analytics platform — components, models, types, rendering, and deployment.</p>
           <p>The other half is performance. An edge box has a fixed compute budget, and the usual way to lose it is shipping frames back to the host for work the accelerator could have done. Most of my optimisation work is closing that gap.</p>
-          <p>My current project puts our analytics inside a third-party video management system: a C++ plugin hands frames to a Python daemon through shared memory, events come back over IPC, and a supervisor spreads cameras across whichever accelerators the host has. Getting it stable took more care than getting it working. Cameras fail, tasks get swapped, and the recovery path is what decides whether anyone trusts it.</p>
-          <p>I also review most of what the team merges. That turns out to be where a lot of the design gets settled.</p>
         </div>
       </section>
 
